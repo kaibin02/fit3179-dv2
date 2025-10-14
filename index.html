@@ -1,17 +1,89 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Median Household Income by State, Malaysia (2022)</title>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  </head>
-  <body>
-    <h1>Median Household Income by State, Malaysia (2022)</h1>
-    <div id="vis"></div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Median Household Income in Malaysia</title>
 
-    <script type="text/javascript">
-      vegaEmbed('#vis', 'map.json');
-    </script>
-  </body>
+  <!-- Vega & Vega-Lite Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <!-- Basic Styling -->
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: #222;
+      margin: 0;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: 28px;
+      color: #1a237e;
+    }
+
+    h2 {
+      margin-top: 50px;
+      font-size: 22px;
+      color: #283593;
+    }
+
+    #charts {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    /* Chart containers */
+    .chart-container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* Dropdown alignment */
+    select {
+      margin-top: 8px;
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Median Household Income in Malaysia</h1>
+
+  <div id="charts">
+    <!-- Task 1: Interactive Line Chart -->
+    <section class="chart-container">
+      <h2>Median Household Income Over Time by State</h2>
+      <div id="incomeChart"></div>
+    </section>
+
+    <!-- Task 2: Choropleth Map -->
+    <section class="chart-container">
+      <h2>Median Household Income by State (2022)</h2>
+      <div id="incomeMap"></div>
+    </section>
+  </div>
+
+  <!-- Embed both visualisations -->
+  <script>
+    // Task 1: Interactive line chart
+    vegaEmbed("#incomeChart", "income_line.json")
+      .then(() => console.log("Line chart loaded."))
+      .catch(console.error);
+
+    // Task 2: Map visualisation
+    vegaEmbed("#incomeMap", "income_map.json")
+      .then(() => console.log("Map loaded."))
+      .catch(console.error);
+  </script>
+</body>
 </html>
