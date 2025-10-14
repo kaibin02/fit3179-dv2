@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Median household income over time by state (simple 2020 reference line)",
+  "data": {"url": "income.csv"},
+  "transform": [{"filter": "StateSel == 'All' || datum.state == StateSel"}],
+  "params": [
+    {
+      "name": "StateSel",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All","Johor","Kedah","Kelantan","Melaka","Negeri Sembilan",
+          "Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak",
+          "Selangor","Terengganu","W.P. Kuala Lumpur","W.P. Labuan","W.P. Putrajaya"
+        ],
+        "name": "Select State: "
+      }
+    }
+  ],
+  "width": 800,
+  "height": 450,
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal", "timeUnit": "year", "title": "Year"},
+        "y": {"field": "income_median", "type": "quantitative", "title": "Median Income (RM)", "axis": {"format": ",.0f"}},
+        "color": {"field": "state", "type": "nominal", "title": "State", "scale": {
+    "range": [
+      "#1f77b4",  
+      "#ff7f0e",  
+      "#9467bd",  
+      "#8c564b", 
+      "#e377c2", 
+      "#7f7f7f",
+      "#bcbd22", 
+      "#17becf", 
+      "#d62728",  
+      "#1f78b4",  
+      "#aec7e8",
+      "#ffbb78",
+      "#c5b0d5",
+      "#c49c94",
+      "#f7b6d2",
+      "#c7c7c7",
+      "#dbdb8d"
+    ]
+  }},
+        "tooltip": [
+          {"field": "state", "title": "State"},
+          {"timeUnit": "year", "field": "date", "title": "Year"},
+          {"field": "income_median", "title": "Median Income (RM)", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+    "mark": {"type": "rule", "color": "red", "strokeDash": [5, 5], "size": 2},
+    "encoding": {
+      "x": {"datum": {"year": 2020}}
+    }
+  },
+  {
+    "data": {"values": [{}]},
+    "mark": {
+      "type": "text",
+      "color": "red",
+      "fontWeight": "bold",
+      "fontSize": 12,
+      "dx": -10,
+      "dy": -10,
+      "align": "right"
+    },
+    "encoding": {
+      "x": {"datum": {"year": 2020}},
+      "y": {"datum": 11000},
+      "text": {"value": "COVID-19 impact begins"}
+    }
+  }
+],
+  "title": "Median Household Income Over Time by State"
+}
